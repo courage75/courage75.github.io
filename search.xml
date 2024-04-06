@@ -4,12 +4,75 @@
   
     
     <entry>
-      <title>结合tfidf与RidgeClassifier（岭回归）构建验证集计算f1得分</title>
+      <title>南乡子</title>
+      <link href="/2024/04/06/%E5%8D%97%E4%B9%A1%E5%AD%90.%E5%92%8C%E6%9D%A8%E5%85%83%E7%B4%A0%E6%97%B6%E7%A7%BB%E7%A7%BB%E5%AE%88%E5%AF%86%E5%B7%9E/"/>
+      <url>/2024/04/06/%E5%8D%97%E4%B9%A1%E5%AD%90.%E5%92%8C%E6%9D%A8%E5%85%83%E7%B4%A0%E6%97%B6%E7%A7%BB%E7%A7%BB%E5%AE%88%E5%AF%86%E5%B7%9E/</url>
+      
+        <content type="html"><![CDATA[<h2 id="南乡子-和杨元素时移移守密州"><a href="#南乡子-和杨元素时移移守密州" class="headerlink" title="南乡子.和杨元素时移移守密州"></a>南乡子.和杨元素时移移守密州</h2><p>东武望余杭，云海天涯两杳茫。何日功成名遂了，还乡，醉笑陪公三万场。</p><p>不用诉离殇，痛饮从来别有肠。今夜送归灯火冷，河塘，堕泪羊公却姓杨。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 诗情画意 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>NLP学习day5：词向量汇总：word2vec、fastText、Glove,Bert</title>
+      <link href="/2024/04/06/NLP%E5%AD%A6%E4%B9%A0day5/"/>
+      <url>/2024/04/06/NLP%E5%AD%A6%E4%B9%A0day5/</url>
+      
+        <content type="html"><![CDATA[<p>-</p><h2 id="一、Onehot"><a href="#一、Onehot" class="headerlink" title="一、Onehot"></a>一、Onehot</h2><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ol><li>解决了分类器处理离散数据困难的问题</li><li>一定程度上起到了扩展特征的作用</li></ol><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol><li>one-hot是一个词袋模型，不考虑词与词之间的顺序问题，而在文本中次序是一个很重要的问题</li><li>one-hot是基于词与词之间相互独立的情况下的，然而在多数情况中，词与词之间应该是相互影响的</li><li>one-hot得到的特征是离散的、稀疏的</li></ol><h2 id="二、TF-IDF与TextRank"><a href="#二、TF-IDF与TextRank" class="headerlink" title="二、TF-IDF与TextRank"></a>二、TF-IDF与TextRank</h2><p>NLP中最为经典的关键词提取算法，虽然简单，但应用广泛</p><h3 id="1-TF-IDF-参见上文"><a href="#1-TF-IDF-参见上文" class="headerlink" title="1. TF-IDF:参见上文"></a>1. TF-IDF:参见上文</h3><p><strong>总结</strong>:</p><ul><li>当一个词在文档频率越高并且新鲜度高（即普遍度低），其TF-IDF值越高。</li><li>TF-IDF兼顾词频与新鲜度，过滤一些常见词，保留能提供更多信息的重要词。</li></ul><h3 id="2-TextRank简介"><a href="#2-TextRank简介" class="headerlink" title="2. TextRank简介"></a>2. TextRank简介</h3><p>通过词之间的相邻关系构建网络，然后用<strong>PageRank</strong>迭代计算每个节点的rank值，排序rank值即可得到关键词。</p><p>PageRank本来是用来解决网页排名的问题，网页之间的链接关系即为图的边，迭代计算公式如下：</p><script type="math/tex; mode=display">PR(Vi)=(1-d)+d*\sum_{j}</script>]]></content>
+      
+      
+      <categories>
+          
+          <category> NLP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker学习Day1</title>
+      <link href="/2024/04/04/Docker%E5%AD%A6%E4%B9%A0day1/"/>
+      <url>/2024/04/04/Docker%E5%AD%A6%E4%B9%A0day1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着AI,云原生等技术的向前推进，容器技术逐渐成为每位算法同学的必备技能之一，开始关于容器技术的学习很有必要。我想从零基础实现将代码打包docker镜像-调试-提交仓库-提交云服务训练模型/天池大赛提交/学校服务器训练等流程。希望初次接触docker能够做到以上步骤。</p><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>docker作为虚拟机领域成熟的轻量化容器产品，可以轻松的将代码和所依赖的整个环境（包括整个操作系统）都打包在一起，不依赖于软件环境，方便把自己的代码从windows电脑分享到mac电脑运行、或者服务器上运行等。</p><p>docker三要素：<strong>镜像(image)，容器(contarin)，registry(包含多个仓库)</strong></p><p>以下是对三个要素的分别解释：</p><h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><p>顾名思义就是将要把代码以及环境打包在一起的这个产物就叫做镜像</p><h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>运行起来的镜像称之为容器，可以理解为运行环境或者实例。其实质是进程，随着代码运行结束，进程结束容器也就消失了。</p><h3 id="registry"><a href="#registry" class="headerlink" title="registry"></a>registry</h3><p>镜像存储的地方在registry,这是各云厂商提供的镜像存取服务，类似于网盘，将镜像存储在云端仓库，方便我们随时随地在不同介质运行自己的代码或分享代码。如果你要把本地开发好的代码放在服务器上做耗时的训练动作，那么只需要在服务器上直接拉取自己云端的镜像运行即可。类似于git还有代码管理功能。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>NLP学习day4：结合tfidf与RidgeClassifier(岭回归)计算f1_score得分</title>
       <link href="/2024/04/04/NLP%E5%AD%A6%E4%B9%A0day4/"/>
       <url>/2024/04/04/NLP%E5%AD%A6%E4%B9%A0day4/</url>
       
         <content type="html"><![CDATA[<h1 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h1><h2 id="导入相关库与工具"><a href="#导入相关库与工具" class="headerlink" title="导入相关库与工具"></a>导入相关库与工具</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> RidgeClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> f1_score</span><br></pre></td></tr></table></figure><h2 id="提取数据表"><a href="#提取数据表" class="headerlink" title="提取数据表"></a>提取数据表</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_df=pd.read_csv(<span class="string">&quot;C:\Users\hjg\OneDrive\桌面\train_set.csv&quot;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,nrows=<span class="number">20000</span>)</span><br></pre></td></tr></table></figure><h2 id="提取tfidf值"><a href="#提取tfidf值" class="headerlink" title="提取tfidf值"></a>提取tfidf值</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tfidf=Vectorizer(ngram_range=(<span class="number">1</span>,<span class="number">3</span>),max_feature=<span class="number">3000</span>)</span><br><span class="line">train_test=tfidf.fit_transfrom(train_df[<span class="string">&#x27;text&#x27;</span>])</span><br></pre></td></tr></table></figure><h2 id="构建岭回归，拟合训练模型"><a href="#构建岭回归，拟合训练模型" class="headerlink" title="构建岭回归，拟合训练模型"></a>构建岭回归，拟合训练模型</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">clf=RidgeClassifier()</span><br><span class="line">clf.fit(train_test[:<span class="number">1000</span>],train_df[<span class="string">&#x27;label&#x27;</span>].values[:<span class="number">1000</span>])</span><br><span class="line">vlt_per=clf.predict(tran_test[<span class="number">1000</span>:])</span><br></pre></td></tr></table></figure><h2 id="计算f1-score分数"><a href="#计算f1-score分数" class="headerlink" title="计算f1_score分数"></a>计算f1_score分数</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(f1_score(train_df[<span class="string">&#x27;label&#x27;</span>].values[<span class="number">1000</span>:],vlt_pre,averages=<span class="string">&#x27;macro&#x27;</span>)</span><br></pre></td></tr></table></figure>]]></content>
       
+      
+      <categories>
+          
+          <category> NLP </category>
+          
+      </categories>
       
       
     </entry>
