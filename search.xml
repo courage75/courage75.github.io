@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>双数组字典树</title>
+      <link href="/2024/04/17/%E5%8F%8C%E6%95%B0%E7%BB%84%E5%AD%97%E5%85%B8%E6%A0%91/"/>
+      <url>/2024/04/17/%E5%8F%8C%E6%95%B0%E7%BB%84%E5%AD%97%E5%85%B8%E6%A0%91/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="双数组字典树"><a href="#双数组字典树" class="headerlink" title="双数组字典树"></a>双数组字典树</h3><p>BinTrie的弱点：除了根节点的完美散列外，其余节点都在用二分查找。当存在c个子节点时，每次状态转移的复杂度为$O(logc)$。当c很大时，依然很慢。能否提高单次状态转移的速度呢？</p><p><strong>双数组字典树</strong>$(double Array Trie,DAT)$就是一种状态转移复杂度为常数的数据结构，它由base和check两个数组构成，又简称双数组。</p><h4 id="1-双数组定义"><a href="#1-双数组定义" class="headerlink" title="1.双数组定义"></a>1.双数组定义</h4><p>字典树与双数组字典树均是DFA，其状态由$base$与$check$中的元素和下标表示。具体来说，当状态b接受字符c转移到状态p时，双数组满足：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">p=base[b]+c</span><br><span class="line">check[p]=base[b]</span><br></pre></td></tr></table></figure><p>若不满足此条件，则状态转移失败。若当前状态为自然（状态由一个整数下标表示），如果想知道是否可以转移到自然人，首先先定义$自然人=base[自然]+人$，然后检查$check[自然人]==base[自然]$是否成立，据此判断是否转移成功。</p><p>定义一个双数组：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DoubleArrayTrie</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_init_</span>(<span class="params">self,dic:<span class="built_in">dict</span></span>)-&gt;<span class="literal">None</span>:</span><br><span class="line">        m=JClass(<span class="string">&#x27;java.util.TreeMap&#x27;</span>)()</span><br><span class="line">        <span class="keyword">for</span> k,v <span class="keyword">in</span> dic.items():</span><br><span class="line">            m[k]=v</span><br><span class="line">        dat=JClass(<span class="string">&#x27;com.hankcs.hanlp.collection.trie.DoubleArrayTrie&#x27;</span>)(m)</span><br><span class="line">        self.base=dat.base</span><br><span class="line">        self.check=dat.check</span><br><span class="line">        self.value=dat.v</span><br></pre></td></tr></table></figure><p>将双数组的构造委托给HanLP，直接拿到构造完毕的base、check以及用户赋予每个键的值value数组。</p><h3 id="2-状态转移"><a href="#2-状态转移" class="headerlink" title="2.状态转移"></a>2.状态转移</h3><p>并非所有节点都对应词语终点，只有字典树中的终点节点(蓝色节点)才对应一个词语，为了区分，实现上可以借鉴C语言中的设计，在每个字符串末尾添加一个散列值等于0的\0.也就是说，\0充当了蓝色节点的角色，这样普通节点就不需要再分配内存标记自己的颜色了。为了避免与用户输入的文本混淆，将文本字符的<strong>hashcode</strong>加1就行了。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">transition</span>(<span class="params">self,c,b</span>)-&gt;<span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    状态转移</span></span><br><span class="line"><span class="string">    :param c:字符</span></span><br><span class="line"><span class="string">    :param b:初始状态</span></span><br><span class="line"><span class="string">    :return: 转移后的状态，-1表示失败</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    p=self.base[b]+self.char_hash(c)+<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> self.base[b]==self.check(p):</span><br><span class="line">        <span class="keyword">return</span> p</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure><p>除了额外加1的技巧外，这段代码与双数组字典树的定义是吻合的。</p><h3 id="3-查询"><a href="#3-查询" class="headerlink" title="3.查询"></a>3.查询</h3><p>在实现上，value数组可以存储任何类型的对象，双数组只维护键的字典序。需要值的时候，先查询到键的字典序，然后将字典序做下标去value数组中取值。具体做法是将字典序作为自然数赋予作为单词结尾的那些节点。</p><p>为了节省内存，不必要另开一个数组，只需约定当状态p满足<strong>base[p]&lt;0</strong>时，该状态对应单词结尾，且单词的字典序为<strong>-base[p] - 1</strong>。之所以减一是因为负数从-1开始，取相反数减一后为0，是第一个自然数。</p><p>伪代码：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">def_getitem_(self,key:<span class="built_in">str</span>):</span><br><span class="line">    b=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(key)):<span class="comment">#len(key)次状态转移</span></span><br><span class="line">        p=self.transition(key[i],b)</span><br><span class="line">        <span class="keyword">if</span> p <span class="keyword">is</span> <span class="keyword">not</span> -<span class="number">1</span>:</span><br><span class="line">            b=p</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">    p=self.base[b]<span class="comment">#按字符&#x27;\0&#x27;进行状态转移</span></span><br><span class="line">    n=self.base[p]<span class="comment">#查询base</span></span><br><span class="line">    <span class="keyword">if</span> p==self.check[p]:</span><br><span class="line">        index=-n-<span class="number">1</span><span class="comment">#取得字典序</span></span><br><span class="line">        <span class="keyword">return</span> self.value[index]</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure><h3 id="4-构造"><a href="#4-构造" class="headerlink" title="4.构造"></a>4.构造</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> NLP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深度学习day1</title>
+      <link href="/2024/04/16/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0day1/"/>
+      <url>/2024/04/16/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0day1/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ol><li><p>深度学习</p><ul><li>机器学习的分支，人工神经网络为基础，对数据的特征进行学习的方法</li></ul></li><li><p>机器学习和深度学习的区别</p><ul><li>特征抽取<ul><li>人工的特征抽取的过程</li><li>深度学习：自动的进行特征抽取</li></ul></li></ul><ul><li>数据量<ul><li>机器学习：数据少，效果不是特别好</li><li>深度学习：数据多，效果更好</li></ul></li></ul></li><li><p>场景</p><ul><li>文本识别</li><li>机器翻译</li><li>聊天对话</li></ul></li><li><p>框架</p><ul><li>pytorch</li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>字典树</title>
       <link href="/2024/04/14/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E5%AE%9E%E7%8E%B0/"/>
       <url>/2024/04/14/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E5%AE%9E%E7%8E%B0/</url>
