@@ -4,6 +4,63 @@
   
     
     <entry>
+      <title>3.1语言模型</title>
+      <link href="/2024/04/22/3.1%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+      <url>/2024/04/22/3.1%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="3-1语言模型"><a href="#3-1语言模型" class="headerlink" title="3.1语言模型"></a>3.1语言模型</h3><h4 id="3-1-1什么是语言模型"><a href="#3-1-1什么是语言模型" class="headerlink" title="3.1.1什么是语言模型"></a>3.1.1什么是语言模型</h4><p><strong>模型</strong>指的是对事物的数学抽象，那么<strong>语言模型</strong>就是对语言现象的数学抽象。举个例子就是，给定一个句子$w$,计算$w$在一篇文档中出现的次数$p(w)$的模型。我们只能在一个较小的样本空间采样，称为语料库。这个概率一般来自人工标注而成的语料库。</p><p>语料库的建设并非高不可攀的过程，一个微型预料库如下：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">商品 和 服务</span><br><span class="line">商品 和服 物美价廉</span><br><span class="line">服务 和 货币</span><br></pre></td></tr></table></figure><p>这就是一个语料库，就这个语料库我们可以计算出$p(商品 和 服务)=\frac{1}{3}$,$p(商品 和服 物美价廉)=\frac{1}{3}$，$p(服务 和 货币)=\frac{1}{3}$，其他句子概率都为0。因为样本空间大小为3，所以平均分给了这三个句子，其他句子的概率为0。如果希望更准确地估计句子分布，则需要增大样本数量。估算句子分布是NLP任务中最基本的问题。如果模型能分辨出$p(商品 和 服务)&gt;p(商品 和服 务)$，分词器就能据此选择正确结果，机器翻译系统就能翻译出更流畅的译文。</p><p>然而$p(w)$的计算非常困难，即使是大型语料库也只有几百万句子，每个句子几乎不会重复，这导致每个句子的$p(w)=1$，而在语料库之外的句子$p(w)=0$，日常遇到的句子几乎都在语料库之外，所以它们的概率几乎都为0，这样的现象被称为<strong>数据稀疏</strong>。</p><p>更合理的方法是考虑单词。考虑到句子有单词构成，句子无限，但构成句子的单词有限。我们从单词构成句子的角度出发去建模句子，把句子表示为单词列表$w=w1w2w~k~…$，每个$wt，t\in[1,k]$都是一个单词，定义语言模型：</p><script type="math/tex; mode=display">p(w)=p(w_1w_2...w_k)</script><script type="math/tex; mode=display">=p(w_1|w_0)\times p(w_2|w_0w_1)\times ....\times p(w_k|w_0w_1w_2...w_{k-1})</script><p>其中，$w0=BOS$，定义为一个句子的开头，$wk=EOS$定义为一个句子的结尾，这在NLP领域的论文和代码中经常出现。</p><p>语言模型模仿人的说话顺序，给定已经说出口的词语序列，预测下一个词语的后验概率，然后一个单词一个单词地乘上后验概率，就能估计出任意一句话的概率。比如“商品”和“服务”的概率估计如下：</p><script type="math/tex; mode=display">p(商品\,和\,服务)=p(商品|BOS)p(和|BOS商品)p(服务|BOS商品\,和)p(EOS|BOS\,商品\,和\,服务)</script><p>用上面的语料库来计算$p(商品 和 服务)$的概率，用极大似然估计来计算每个后验概率，也即：</p><script type="math/tex; mode=display">p(w_t|w_0...w_{t-1})=P_{ML}(w_t|w_0...w_t-_1)=\frac{c(w_0...w_t)}{c(w_0...w_{t-1})}</script><p>比如商品$p(商品|BOS)$的估计只需计算“商品”作为第一个单词出现的次数2，和所有单词作为第一个单词出现的次数3，然后相除得$p(商品|BOS)=\frac{2}{3}$，$p(和|BOS\,商品)$则需要统计”BOS 商品 和”的出现次数1，除以“BOS 商品”的频次2即可，即$p(和|BOS\,商品)=\frac{1}{2}$，同理$p(服务|BOS\,商品\,和)=\frac{1}{1}$,$p(EOS|BOS\,商品\,和\,服务)=\frac{1}{1}$。整个句子的概率是四者的乘积。</p><script type="math/tex; mode=display">p(商品\,和\,服务)=\frac{2}{3}\times\frac{1}{2}\times\frac{1}{1}\times\frac{1}{1}</script><p>与枚举的概率一致，但随着句子长度的增大，枚举会遇到以下两个问题：</p><ol><li><strong>数据稀疏</strong>指的是长度越大的句子越难出现，语料库中极有可能统计不到长句子的频次，导致$p(w_k|w_0w_1…w_{k-1})=0$。比如$p(商品\,和\,服务)=0$。同枚举一样，数据稀疏的问题依然存在。</li><li><strong>计算代价大</strong>，k越大,$p(w_k|w_0w_1…w_{k-1})$存储的数据就越多，即使是用字典树索引，依然需要很大代价。</li></ol><h3 id="3-2马尔可夫链与二元语法"><a href="#3-2马尔可夫链与二元语法" class="headerlink" title="3.2马尔可夫链与二元语法"></a>3.2马尔可夫链与二元语法</h3><p>为了解决这个问题，NLP领域的前辈们使用<strong>马尔可夫链</strong>来解决这个问题，<strong>马尔可夫链</strong>是因果链，表示每一件事的发生概率取决于前一件事。在语言模型中，第k个事件表示$w_k$作为第k个单词出现，也就是说，<strong>马尔科夫链</strong>假设每个单词出现的概率取决于前面一个单词：</p><script type="math/tex; mode=display">p(w_k|w_0w_1...w_{k-1})=p(w_k|w_{k-1})</script><p>基于此假设，式子一下子短了不少，由于每次计算只涉及到两个单词的二元接续，所以此时的语言模型又被称为<strong>二元语法</strong>模型：</p><script type="math/tex; mode=display">p(w)=p(w_0w_1...w_k)=p(w_1|w_0)\times p(w_2|w_1)\times...\times p(w_{k+1}|w_k)=\prod_{k=1}^{k+1}{p(w_{k+1}|w_{k})}</script><p>由于语料库中二元接续的重复程度要高于整个句子的重复程度，所以<strong>数据稀疏</strong>的问题得到了解决，同时，二元接续的数量远小于句子的数量，长度也更短，所以存储和查询的问题也得到了解决。</p><p>利用<strong>二元语法</strong>模型来计算$p(商品\,和\,服务)$：</p><script type="math/tex; mode=display">p(商品\,和\,服务)=p(商品|BOS)p(和|商品)p(服务|和)p(EOS|服务)=\frac{2}{3}\times\frac{1}{2}\times\frac{1}{2}\times\frac{1}{2}</script><p>如何计算的：以$p(和|商品)$为例：（商品 和）的频次除以（商品）的频次得$\frac{1}{2}$。</p><p>这次的概率比上次的少了点，剩下的概率到哪去了？计算一下语料库之外的句子$p(商品\,和\,货币)$。</p><p>得$\frac{1}{6}$。原来概率分给了语料库之外的句子，这就缓解了<strong>数据稀疏</strong>的问题。</p><h3 id="3-3-n-元语法"><a href="#3-3-n-元语法" class="headerlink" title="3.3 $n$元语法"></a>3.3 $n$元语法</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> NLP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2.10字典树的其他应用</title>
+      <link href="/2024/04/22/2.10%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8/"/>
+      <url>/2024/04/22/2.10%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="2-10字典树的其他应用"><a href="#2-10字典树的其他应用" class="headerlink" title="2.10字典树的其他应用"></a>2.10字典树的其他应用</h3><p>字典树除了应用于中文分词之外，还可应用于任何词典与最长匹配的任务。在HanLP中，字典树被广泛应用于停用词过滤、简繁转换、拼音转换等任务。</p><h4 id="2-10-1-停用词过滤"><a href="#2-10-1-停用词过滤" class="headerlink" title="2.10.1 停用词过滤"></a>2.10.1 停用词过滤</h4><p>汉语中有一类称为停用词的词，它们没有什么特殊意义，如助词“的”，连词“以及”，副词“甚至”、语气词“吧”，称为<strong>停用词</strong>。一个句子去掉了停用词并不影响理解。停用词视具体任务不同而不同，在网站系统中，一些非法的敏感词也被视为停用词。因此，停用词的过滤是一个常见的预处理过程。</p><p>HanLP也提供了停用词词典，可以用BinTrie、DAT、ADAT中的任意一个存储词典。考虑到词典中含有单子词语，用双数组字典树更划算。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">load_from_file</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="built_in">map</span>=JCalss(<span class="string">&#x27;java.util.TreeMap&#x27;</span>)()</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(path) <span class="keyword">as</span> src:</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> src:</span><br><span class="line">            word=word.strip()<span class="comment">#去掉python读入的\n</span></span><br><span class="line">            <span class="built_in">map</span>[word]=word</span><br><span class="line">    <span class="keyword">return</span> JClass(<span class="string">&#x27;&#x27;</span>)(<span class="built_in">map</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_from_words</span>(<span class="params">*words</span>):</span><br><span class="line">    <span class="built_in">map</span> =JClass(<span class="string">&#x27;java.util.TreeMap&#x27;</span>)()<span class="comment">#创建TreeMap实例</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> words:</span><br><span class="line">        <span class="built_in">map</span>[word]=word</span><br><span class="line">    <span class="keyword">return</span> JClass(<span class="string">&#x27;&#x27;</span>)(<span class="built_in">map</span>)</span><br><span class="line">            </span><br></pre></td></tr></table></figure><p>加载停用词后，会得到一棵双数组字典树。现在针对分词结果，遍历每个词语，若它在字典树中，则删除。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">remove_stopwords_termlist</span>(<span class="params">termlist,trie</span>):</span><br><span class="line">    <span class="keyword">return</span> [term.word <span class="keyword">for</span> term <span class="keyword">in</span> termlist <span class="keyword">if</span> <span class="keyword">not</span> trie.containsKey(term.word)]</span><br></pre></td></tr></table></figure><p>在敏感词过滤的场景下，通常需要将敏感词替换为特定字符串，一般是**。此时可以先分词再替换，也可以不分词，利用接口直接替换。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> NLP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>野有蔓草</title>
+      <link href="/2024/04/21/%E9%87%8E%E6%9C%89%E8%94%93%E8%8D%89/"/>
+      <url>/2024/04/21/%E9%87%8E%E6%9C%89%E8%94%93%E8%8D%89/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div class='poem'><div class='poem-title'>野有蔓草 诗经 国风 郑风</div><div class='poem-author'></div><p>野有蔓草，零露漙兮。有美一人，清扬婉兮。邂逅相遇，适我愿兮。</p><p>野有蔓草，零露瀼瀼。有美一人，婉如清扬。邂逅相遇，与子偕臧。</p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 诗情画意 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2.9准确率评测</title>
       <link href="/2024/04/21/2.9%E5%87%86%E7%A1%AE%E7%8E%87%E8%AF%84%E6%B5%8B/"/>
       <url>/2024/04/21/2.9%E5%87%86%E7%A1%AE%E7%8E%87%E8%AF%84%E6%B5%8B/</url>
@@ -312,7 +369,7 @@
       <link href="/2024/03/31/%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%E7%9A%84%E5%B0%8F%E7%9B%AE%E6%A0%87/"/>
       <url>/2024/03/31/%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%E7%9A%84%E5%B0%8F%E7%9B%AE%E6%A0%87/</url>
       
-        <content type="html"><![CDATA[<ol><li>个人博客主题优化，维护，并设计小功能</li><li>docker容器环境搭建并运行</li><li>NLP新闻文本分类入门+西瓜书机器学习入门</li><li>微信机器人小程序学习部署</li><li>算竞训练（一天一道1800，写题解）<br>此外<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">务须坚持学习，写博客</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ol><li>个人博客主题优化，维护，并设计小功能</li><li>docker容器环境搭建并运行</li><li>NLP新闻文本分类入门+何晗老师的《自然语言处理入门》</li><li>微信机器人小程序学习部署</li></ol>]]></content>
       
       
       
