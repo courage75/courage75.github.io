@@ -1,0 +1,478 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>COggle 30 Days of ML 对话意图识别 | 春风十里</title><meta name="author" content="Yewq"><meta name="copyright" content="Yewq"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="内容介绍本月竞赛学习以对话意图识别展开，意图识别是指分析用户的核心需求，错误的识别几乎可以确定找不到能满足用户需求的内容，导致产生非常差的用户体验。在对话过程中要准确理解对方所想表达的意思，这是具有很大挑战性的任务。在本次学习中我们将学习：  自然语言处理基础 文本分类路线：正则表达式、TFIDF、FastText、BERT、T5、Prompt、GPT 大模型分类路线：提示词、思维链、高效微调">
+<meta property="og:type" content="article">
+<meta property="og:title" content="COggle 30 Days of ML 对话意图识别">
+<meta property="og:url" content="http://example.com/2024/05/10/%E5%AF%B9%E8%AF%9D%E6%84%8F%E5%9B%BE%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="春风十里">
+<meta property="og:description" content="内容介绍本月竞赛学习以对话意图识别展开，意图识别是指分析用户的核心需求，错误的识别几乎可以确定找不到能满足用户需求的内容，导致产生非常差的用户体验。在对话过程中要准确理解对方所想表达的意思，这是具有很大挑战性的任务。在本次学习中我们将学习：  自然语言处理基础 文本分类路线：正则表达式、TFIDF、FastText、BERT、T5、Prompt、GPT 大模型分类路线：提示词、思维链、高效微调">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ts1.cn.mm.bing.net/th/id/R-C.66d7b796377883a92aad65b283ef1f84?rik=sQ%2fKoYAcr%2bOwsw&riu=http%3a%2f%2fwww.quazero.com%2fuploads%2fallimg%2f140305%2f1-140305131415.jpg&ehk=Hxl%2fQ9pbEiuuybrGWTEPJOhvrFK9C3vyCcWicooXfNE%3d&risl=&pid=ImgRaw&r=0">
+<meta property="article:published_time" content="2024-05-10T12:22:00.461Z">
+<meta property="article:modified_time" content="2024-05-23T13:31:12.015Z">
+<meta property="article:author" content="Yewq">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ts1.cn.mm.bing.net/th/id/R-C.66d7b796377883a92aad65b283ef1f84?rik=sQ%2fKoYAcr%2bOwsw&riu=http%3a%2f%2fwww.quazero.com%2fuploads%2fallimg%2f140305%2f1-140305131415.jpg&ehk=Hxl%2fQ9pbEiuuybrGWTEPJOhvrFK9C3vyCcWicooXfNE%3d&risl=&pid=ImgRaw&r=0"><link rel="shortcut icon" href="/img%5Cv2-dc7a6a57d3c3126df8e7de55f4530c42_r.png"><link rel="canonical" href="http://example.com/2024/05/10/%E5%AF%B9%E8%AF%9D%E6%84%8F%E5%9B%BE%E8%AF%86%E5%88%AB/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'COggle 30 Days of ML 对话意图识别',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-05-23 21:31:12'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/cat.css"><link rel="stylesheet" href="https://npm.elemecdn.com/ethan4116-blog/lib/css/plane_v2.css"><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://ts1.cn.mm.bing.net/th/id/R-C.4e8286591310ca1d1d99cb7072f13218?rik=t6ebQNu8dGSbaQ&amp;riu=http%3a%2f%2fimg.touxiangwu.com%2fuploads%2fallimg%2f2022020920%2fjbozxw1scpi.jpg&amp;ehk=YMIbqTrTebxfnY3LeT%2boHwRxgBLWFuTxxB2qDEzrD7k%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://ts1.cn.mm.bing.net/th/id/R-C.66d7b796377883a92aad65b283ef1f84?rik=sQ%2fKoYAcr%2bOwsw&amp;riu=http%3a%2f%2fwww.quazero.com%2fuploads%2fallimg%2f140305%2f1-140305131415.jpg&amp;ehk=Hxl%2fQ9pbEiuuybrGWTEPJOhvrFK9C3vyCcWicooXfNE%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0')"><nav id="nav"><span id="blog-info"><a href="/" title="春风十里"><span class="site-name">春风十里</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">COggle 30 Days of ML 对话意图识别</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-10T12:22:00.461Z" title="发表于 2024-05-10 20:22:00">2024-05-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-23T13:31:12.015Z" title="更新于 2024-05-23 21:31:12">2024-05-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/NLP/">NLP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="COggle 30 Days of ML 对话意图识别"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="内容介绍"><a href="#内容介绍" class="headerlink" title="内容介绍"></a>内容介绍</h3><p>本月竞赛学习以对话意图识别展开，意图识别是指分析用户的核心需求，错误的识别几乎可以确定找不到能满足用户需求的内容，导致产生非常差的用户体验。在对话过程中要准确理解对方所想表达的意思，这是具有很大挑战性的任务。在本次学习中我们将学习：</p>
+<ul>
+<li>自然语言处理基础</li>
+<li>文本分类路线：正则表达式、TFIDF、FastText、BERT、T5、Prompt、GPT</li>
+<li>大模型分类路线：提示词、思维链、高效微调</li>
+</ul>
+<p>内容在线地址：<a target="_blank" rel="noopener" href="http://discussion.coggle.club/t/topic/222">对话意图识别 - 竞赛学习 - Coggle竞赛论坛</a></p>
+<h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><p>意图识别（Intent Recognition）是指通过自然语言文本来自动识别出用户的意图或目的的一项技术任务。在人机交互、语音识别、自然语言处理等领域中，意图识别都扮演着至关重要的角色。</p>
+<p>意图识别有很多用途，例如在搜索引擎中分析用户的核心搜索需求，在对话系统中分析用户想要什么业务，在身份识别中判断用户的身份信息等。意图识别可以提高用户体验和服务质量。</p>
+<h3 id="任务1：数据读取与分析"><a href="#任务1：数据读取与分析" class="headerlink" title="任务1：数据读取与分析"></a>任务1：数据读取与分析</h3><p>NLP是自然语言处理的缩写，是研究如何让计算机理解和处理自然语言的一门技术。自然语言是人类交流和表达思想的主要工具，具有丰富的语义和多样的形式。学习NLP需要掌握基本的语言学概念、文本预处理和文本表示方法等基础知识。语言学概念可以帮助我们分析自然语言的结构和规律，文本预处理可以帮助我们清洗和规范化文本数据，文本表示方法可以帮助我们将文本转换为计算机可处理的数值向量。</p>
+<p>学习NLP很难的原因可能有以下几点：NLP涉及多个领域的知识，需要较强的综合能力和自学能力；NLP是一个快速发展的领域，需要不断更新自己的知识和技能；NLP面临很多挑战和难题，如自然语言的歧义性、复杂性、多样性等。</p>
+<ul>
+<li>步骤1：下载意图识别数据集，该数据集是一个多分类任务，目标是根据用户的输入文本判断用户的意图。</li>
+<li>步骤2：使用Pandas库读取数据集，Pandas是一个用于数据分析和处理的Python库，可以方便地读取、操作和保存各种格式的数据文件。使用Pandas的read_csv函数可以读取csv格式的数据文件，并返回一个DataFrame对象。</li>
+<li>步骤3：统计训练集和测试集的类别分布、文本长度等基本信息，以了解数据集的特征和难度。使用DataFrame对象的value_counts函数可以统计每个类别出现的次数和比例，使用apply函数和len函数可以统计每个文本的长度。</li>
+<li>步骤4：通过上述步骤，回答下列问题：<ul>
+<li>数据集的文本长度分布一致吗？</li>
+<li>数据集中的文本是长文本还是短文本？根据统计结果，查看每个文本的长度分布情况，如文本长度中的中位数。</li>
+<li>数据集中总共包含了多少个字符，多少个单词？将单词按照意图类别绘制云图。</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>读取数据并统计每个类别出现的次数和比例</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 数据读取与分析</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">train_data=pd.read_csv(<span class="string">&quot;C:\\Users\\hjg\\OneDrive\\桌面\\对话意图识别\\train.csv&quot;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line">test_data=pd.read_csv(<span class="string">&quot;C:\\Users\\hjg\\OneDrive\\桌面\\对话意图识别\\test.csv&quot;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>训练集数据展示：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_data</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405161651805.png" alt="image-20240516165103004"></p>
+<p>可以看出训练集有两列分别代表$text$文本与$label$标签</p>
+<ol>
+<li><p>测试集数据展示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">test_data</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405161654970.png" alt="image-20240516165418770"></p>
+<p>测试集的数据只有$text$列，我们所要做的事情就是训练模型找出测试集的文本所对应的$label$</p>
+</li>
+<li><p>展示有多少个$label$标签：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;#&#x27;</span>.join(train_data[<span class="number">1</span>].unique())</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405161700033.png" alt="image-20240516165920548"></p>
+</li>
+<li><p>对类别列进行统计：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_data[<span class="number">1</span>].values_counts()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>文本个数进行统计：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_data[<span class="number">0</span>].apply(<span class="built_in">len</span>).plot(kind=<span class="string">&#x27;hist&#x27;</span>)</span><br><span class="line">test_data[<span class="number">0</span>].apply(<span class="built_in">len</span>).plot(kind=<span class="string">&#x27;hist&#x27;</span>)</span><br><span class="line">plt.legend([<span class="string">&#x27;Train&#x27;</span>,<span class="string">&#x27;Test&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p>应用$matplotlib$绘图库对文本个数进行直观统计</p>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405161707532.png" alt="image-20240516170743141"></p>
+<p>从中可看出，大部分文本长度在40以内</p>
+</li>
+<li><p>对字符长度进行统计：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_data[<span class="number">0</span>].apply(<span class="built_in">len</span>).describe()</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405161710921.png" alt="image-20240516170957728"></p>
+<p>从中可看出训练集有$1.2$万左右字符，每个$text$的长度为15左右。</p>
+</li>
+<li><p>绘制云图，对数据进行分析</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#对文本进行预处理</span></span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line">content=train_data[train_data[<span class="number">0</span>]==<span class="string">&#x27;Music-Play&#x27;</span>][<span class="number">1</span>]</span><br><span class="line">content=<span class="string">&#x27; &#x27;</span>.join(content)</span><br><span class="line"><span class="comment">#中文分词</span></span><br><span class="line">content=jieba.cut(content)</span><br><span class="line"><span class="comment">#提取停用词表</span></span><br><span class="line">cn_stopwords = <span class="string">&#x27; &#x27;</span>.join(<span class="built_in">str</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> pd.read_csv(<span class="string">&#x27;https://mirror.coggle.club/stopwords/baidu_stopwords.txt&#x27;</span>, header=<span class="literal">None</span>)[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#去除停用词</span></span><br><span class="line">words=[x <span class="keyword">for</span> x <span class="keyword">in</span> content <span class="keyword">if</span> x <span class="keyword">not</span> <span class="keyword">in</span> cn_stopwords]</span><br><span class="line"><span class="comment">#绘制云图</span></span><br><span class="line">wordcloud=WordCloud(background_color=<span class="string">&#x27;white&#x27;</span>,max_words=<span class="number">1000</span>,font_path=<span class="string">&#x27;./simsun.ttc&#x27;</span>)</span><br><span class="line">wordcloud.generate(<span class="string">&#x27; &#x27;</span>.join(words))</span><br><span class="line">plt.simshow(wordcloud)</span><br><span class="line">plt.xticks([]);plt.yticks([])</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405172000602.png" alt="图片"></p>
+</li>
+</ol>
+<h3 id="任务2：-正则关键词与文本分类"><a href="#任务2：-正则关键词与文本分类" class="headerlink" title="任务2： 正则关键词与文本分类"></a>任务2： 正则关键词与文本分类</h3><p>正则表达式是一种用于字符串搜索和操作的强大工具。使用单个字符来描述、匹配一系列符合某个句法规则的字符串。</p>
+<ol>
+<li><strong>定义规则</strong>：根据分类需求定义一组正则表达式规则。</li>
+<li><strong>预处理文本</strong>：对输入文本进行清洗。例如去除空值、去除标点符号。</li>
+<li><strong>模式匹配</strong>：使用正则表达式在文本中搜索定义的模式。</li>
+<li><strong>分类决策</strong>：根据匹配结果，将文本分配到相应的类别。</li>
+</ol>
+<p>使用正则表达式进行文本分类时，确定关键词是一个关键步骤，因为它直接影响到分类的准确性和效率。可以从分析中找出每个类别的高频词汇，或考虑类别相关的专业术语或行业特定的词汇。</p>
+<ol>
+<li><p>读取数据，对数据进行清洗，为定义正则关键词及表达式做准备</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 导入对应的包</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot.plt <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="comment"># 读取数据集</span></span><br><span class="line">train_data=pd.read_csv(<span class="string">&#x27;文件地址&#x27;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line">test_data=pd.read_csv(<span class="string">&#x27;文件地址&#x27;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line"><span class="comment"># 分词</span></span><br><span class="line">train_text=<span class="string">&#x27; &#x27;</span>.join(train_text[<span class="number">0</span>])</span><br><span class="line">train_words=jieba.cut(train_text)</span><br><span class="line"><span class="comment"># 读取停用词表</span></span><br><span class="line">cn_stopwords = <span class="string">&#x27; &#x27;</span>.join(<span class="built_in">str</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> pd.read_csv(<span class="string">&#x27;https://mirror.coggle.club/stopwords/baidu_stopwords.txt&#x27;</span>, header=<span class="literal">None</span>)[<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 去除停用词表</span></span><br><span class="line">train_words=[x <span class="keyword">for</span> x <span class="keyword">in</span> train_words <span class="keyword">if</span> x <span class="keyword">not</span> <span class="keyword">in</span> cn_stopwords]</span><br><span class="line"><span class="comment"># 筛出长度大于1的词</span></span><br><span class="line">train_words=[x <span class="keyword">for</span> x <span class="keyword">in</span> train_words <span class="keyword">if</span> <span class="built_in">len</span>(x)&gt;<span class="number">1</span>]</span><br><span class="line"><span class="comment"># 剔除纯数字</span></span><br><span class="line">train_words=[x <span class="keyword">for</span> x <span class="keyword">in</span> train_words <span class="keyword">if</span> <span class="keyword">not</span> x.isdigit()]</span><br><span class="line"><span class="comment"># 剔除词频过小的词</span></span><br><span class="line">train_words_freq=Counter(train_words)</span><br><span class="line">train_words=[x <span class="keyword">for</span> x <span class="keyword">in</span> train_words <span class="keyword">if</span> train_words_freq[x]&gt;=<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<p>数据展示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_show=<span class="string">&#x27;&#x27;</span>.join(train_words)</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405172021153.png" alt="image-20240517202056491"></p>
+</li>
+<li><p>定义正则表达式规则准备，整理每个词所对应的$label$，及相应词频</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_word_prior=&#123;&#125;</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> train_data.iloc[:].itertuples():</span><br><span class="line">    <span class="comment">#text与label分别对应每行数据的文本及相应标签</span></span><br><span class="line">    text.label=row[<span class="number">1</span>],row[<span class="number">2</span>]</span><br><span class="line">    <span class="comment">#将每行的第一列文本数据分词</span></span><br><span class="line">    words=jieba.cut(text)</span><br><span class="line">    <span class="comment">#筛在已经预处理过的词汇表中的词</span></span><br><span class="line">    words=[x <span class="keyword">for</span> x <span class="keyword">in</span> words <span class="keyword">if</span> x <span class="keyword">in</span> train_words]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(words)==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> words:</span><br><span class="line">        <span class="keyword">if</span> word <span class="keyword">not</span> <span class="keyword">in</span> train_word_prior:</span><br><span class="line">            train_word_prior[word]=&#123;<span class="string">&quot;total&quot;</span>:<span class="number">0</span>&#125;</span><br><span class="line">        <span class="keyword">if</span> label <span class="keyword">not</span> <span class="keyword">in</span> train_word_prior[word]:</span><br><span class="line">            train_word_prior[word][label]=<span class="number">0</span></span><br><span class="line">    train_word_prior[word][<span class="string">&quot;total&quot;</span>]+=<span class="number">1</span></span><br><span class="line">    train_word_prior[word][label]+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>数据展示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#转换成Dataframe表格形式并转置</span></span><br><span class="line">train_word_prior=pd.DataFrame(train_word_prior).T</span><br><span class="line"><span class="comment">#填充缺失值：</span></span><br><span class="line">train_word_prior.fillna(<span class="number">0</span>,inplace=<span class="literal">True</span>)</span><br><span class="line">train_word_prior</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405172034228.png" alt="image-20240517203407142"></p>
+<p>将词对应的$label$频次转换为概率</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> category <span class="keyword">in</span> train_data[<span class="number">1</span>].unique:</span><br><span class="line">    train_word_prior[category]/=train_word_prior[<span class="string">&#x27;total&#x27;</span>]</span><br><span class="line">train_word_prior</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405172040217.png" alt="image-20240517204027462"></p>
+</li>
+<li><p>每个意图所对应的单词：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># &#x27;category&#x27;是找出每个词对应最大词频的&#x27;label&#x27;</span></span><br><span class="line">train_word_prior[<span class="string">&#x27;category&#x27;</span>]=train_word_prior.columns[<span class="number">1</span>:][train_word_prior.values[:,<span class="number">1</span>:].argmax(<span class="number">1</span>)]</span><br><span class="line"><span class="comment"># 对&#x27;categorical&#x27;进行分组，将每个组转为列表形式</span></span><br><span class="line">df=train_word_prior.grouby(<span class="string">&#x27;category&#x27;</span>).apply(<span class="keyword">lambda</span> x:<span class="built_in">list</span>(x.index))</span><br><span class="line">intent_categories=df.index</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405172055594.png" alt="image-20240517205535938"></p>
+</li>
+<li><p>定义正则表达式所对应的规则，然后进行分类：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">intent_patterns=[re.<span class="built_in">compile</span>(<span class="string">&#x27;|&#x27;</span>.join(x)) <span class="keyword">for</span> x <span class="keyword">in</span> df.values]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 根据规则进行文本分类：</span></span><br><span class="line">text_pred=[]</span><br><span class="line"><span class="keyword">for</span> text <span class="keyword">in</span> test_data[<span class="number">0</span>]:</span><br><span class="line">    single_pred=<span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> category,pattern <span class="keyword">in</span> <span class="built_in">zip</span>(intent_categories,intent_patterns):</span><br><span class="line">        <span class="keyword">if</span> re.findall(pattern,text):</span><br><span class="line">            single_pred=category</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> single_pred==<span class="string">&#x27;&#x27;</span>:</span><br><span class="line">        single_pred=<span class="string">&#x27;Other&#x27;</span></span><br><span class="line">    text_pred.append(single_pred)</span><br><span class="line"><span class="comment"># 数据展示</span></span><br><span class="line">test_data[<span class="string">&#x27;label&#x27;</span>]=text_pred</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405172130311.png" alt="image-20240517212914871"></p>
+</li>
+</ol>
+<p>最后得分：0.43</p>
+<h3 id="任务3：-TFIDF-提取与分类"><a href="#任务3：-TFIDF-提取与分类" class="headerlink" title="任务3：$TFIDF$提取与分类"></a>任务3：$TFIDF$提取与分类</h3><p>$TFIDF$(词频-逆文档频率)是一种常见的文本表示方法，可以用于文本分类任务。$TFIDF$将文本表示为词项的权重向量，其中每个词项的权重由其在文本中出现的频率和在整个语料库中出现的频率共同决定。$TFIDF$可以反映出词项在文本中的重要程度，越是常见的词权重越低，越是稀有的词权重越高。</p>
+<ul>
+<li>步骤1：使用$sklearn$中的$TfidfVectorizer$类提取训练集和测试集的特征。</li>
+<li>步骤2：使用$KNN/LR/SVM$等分类器对训练集进行训练，并对验证集和测试集进行预测，评估模型的性能及预测准确率。</li>
+<li>步骤3：通过上述步骤，回答：<ul>
+<li>$TFIDF$可设置哪些参数，如何影响到提取的特征？$TfidfVectorizer$类中可以设置以下参数：<ul>
+<li>$max_df$：用于过滤掉高频词项，在[0.0,1.0]之间表示比例；</li>
+<li>$min_df$：用于过滤掉低频词汇，在[0.0,1.0]之间表示比例；</li>
+<li>$max_features$：用于限制提取特征的数量，默认为$None$。</li>
+<li>$ngram_range$：用于指定提取$n$元语法特征时$n$值范围，默认为(1,1)，即只提取单个词项。</li>
+<li>stop_words: 用于指定停用词列表，默认为None；</li>
+<li>norm: 用于指定归一化方法，默认为’l2’范数。</li>
+<li>use_idf: 是否使用逆文档频率计算权重，默认为True。</li>
+<li>smooth_idf: 是否平滑逆文档频率计算，默认为True</li>
+</ul>
+</li>
+<li>$KNN/LR/SVM$的精度对比：根据实验结果，比较三种分类器在验证集、测试集上预测正确率、召回率、$F1$值等指标，并分析各自优缺点。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 导入相应的包:</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_predict</span><br><span class="line"><span class="comment"># 先读取训练集、测试集数据:</span></span><br><span class="line">train_data=pd.read_csv(<span class="string">&#x27;文件地址&#x27;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line">test_data=pd.read_csv(<span class="string">&#x27;文件地址&#x27;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line"><span class="comment"># 接着读取停用词表:</span></span><br><span class="line">cn_stopwords = pd.read_csv(<span class="string">&#x27;https://mirror.coggle.club/stopwords/baidu_stopwords.txt&#x27;</span>, header=<span class="literal">None</span>)[<span class="number">0</span>].values</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 计算训练集与测试集Tfidf特征值</span></span><br><span class="line">tfidf=TfidfVectorizer(</span><br><span class="line">    <span class="comment"># 指定分词器</span></span><br><span class="line">	tokenizer=jieba.lcut,</span><br><span class="line">    <span class="comment"># 制定停用词列表</span></span><br><span class="line">    stop_words=<span class="built_in">list</span>(cn_stopwords)</span><br><span class="line">)</span><br><span class="line"><span class="comment"># 对输入的文本进行分词和去除停用词，并计算每个词语的TFIDF值，从而生成相应的特征向量</span></span><br><span class="line">train_tfidf=tfidf.fit_transform(train_data[<span class="number">0</span>])</span><br><span class="line">test_tfidf=tfidf.transform(test_data[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405180955799.png" alt="TFIDF"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用逻辑回归模型进行交叉验证预测</span></span><br><span class="line">cv_pred=cross_val_predict(</span><br><span class="line">    <span class="comment"># 模型对象，是逻辑回归模型的实例化</span></span><br><span class="line">	LogisticRegression(),</span><br><span class="line">    <span class="comment"># 特征数据和目标变量</span></span><br><span class="line">	train_tfidf,train_data[<span class="number">1</span>]</span><br><span class="line">)</span><br><span class="line"><span class="comment"># classification_report函数用于生成分类报告，将train_data[1]作为真实目标变量，cv_pred作为预测目标变量，然后打印出准确率、召回率、F1值等评估指标。</span></span><br><span class="line"><span class="built_in">print</span>(classification_report(train_data[<span class="number">1</span>],cv_pred))</span><br></pre></td></tr></table></figure>
+<p>逻辑回归模型通过学习文本数据中的特征和标签之间的关系，构建一个逻辑函数来预测样本属于某个类别的概率。</p>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405181008321.png" alt="结果展示"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用线性支持向量机模型进行交叉验证预测</span></span><br><span class="line">cv_pred=cross_val_predict(</span><br><span class="line">	LinearSVC(),</span><br><span class="line">    train_tfidf,train_data[<span class="number">1</span>]</span><br><span class="line">)</span><br><span class="line"><span class="comment"># 打印分类报告</span></span><br><span class="line"><span class="built_in">print</span>(classification_report(train_data[<span class="number">1</span>],cv_pred))</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405181013689.png" alt="支持向量机结果展示"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cv_pred=cross_val_predict(</span><br><span class="line">	KNeighborsClassifier(),</span><br><span class="line">	train_tfidf,train_data[<span class="number">1</span>]</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(classification_report(train_data[<span class="number">1</span>],cv_pred))</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405181017198.png" alt="knn临近算法"></p>
+<p><del>最后得分</del>：</p>
+<h3 id="任务4：词向量训练与使用"><a href="#任务4：词向量训练与使用" class="headerlink" title="任务4：词向量训练与使用"></a>任务4：词向量训练与使用</h3><p>词向量是一种将单词转化为向量表示的技术，在自然语言处理中被广泛应用。通过将单词映射到一个低维向量空间中，词向量可以在一定程度上捕捉到单词的语义信息和关联关系，进而提高自然语言处理任务的性能。以下是使用词向量进行文本分类的一个简单示例：</p>
+<ul>
+<li>步骤1(分词)：使用结巴对文本进行分词。结巴是一个基于$Python$的中文分词工具，并支持自定义字典和停用词。</li>
+<li>步骤2(词向量训练)：使用$gensim$训练词向量，也可以考虑加载已有的预训练词向量。$gensim$是一个基于$Python$的自然语言处理库，可以方便地训练和加载词向量，并进行相似度计算、最近邻查询等操作。</li>
+<li>步骤3(编码)：使用词向量对单词进行编码，然后计算句子向量(可以直接求词向量均值)。将每个单词替换为其对应的词向量后，得到一个由多个向量组成的矩阵。为了简化计算和降低维度，可以对矩阵按行求均值，得到一个代表句子含义的句子向量。</li>
+<li>步骤4(分词器训练、验证、预测)：使用$LR、SVM$和决策树对句子向量进行训练、验证和预测。$LR$(逻辑回归)、$SVM$(支持向量机)和决策树都是常用的机器学习分类算法。</li>
+<li>步骤5(问题)：<ul>
+<li>词向量的模型会影响模型精度吗？一般来说，词向量的维度越高，则表示单词语义信息和关联信息的能力越强；但同时会增加计算复杂度和过拟合风险。</li>
+<li>词向量编码后使用树模型和$LR$谁的精度更高，为什么？这取决于数据集特征、参数设置、随机因素等。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 引入所需要的库</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="comment"># 逻辑回归</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisiticRegression</span><br><span class="line"><span class="comment"># 支持向量机</span></span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"><span class="comment"># 交叉验证</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_predict</span><br><span class="line"><span class="comment"># 用于生成分类模型的生成报告</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line"><span class="comment"># gensim词向量</span></span><br><span class="line"><span class="keyword">from</span> gensim.test.utils <span class="keyword">import</span> common_texts</span><br><span class="line"><span class="keyword">from</span> gensim.models <span class="keyword">import</span> Word2Vec</span><br><span class="line">model=Word2Vec(sentences=common_texts,vector_size=<span class="number">100</span>,window=<span class="number">5</span>,min_count=<span class="number">1</span>,workers=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载数据</span></span><br><span class="line">train_data=pd.read_csv(<span class="string">&#x27;文件地址&#x27;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line">test_data=pd.read_csv(<span class="string">&#x27;文件地址&#x27;</span>,sep=<span class="string">&#x27;\t&#x27;</span>,header=<span class="literal">None</span>)</span><br><span class="line"><span class="comment"># 分词</span></span><br><span class="line">train_data[<span class="number">0</span>]=train_data[<span class="number">0</span>].apply(jieba.lcut)</span><br><span class="line">test_data[<span class="number">0</span>]=test_data[<span class="number">0</span>].apply(jieba.lcut)</span><br><span class="line"><span class="comment"># 数据展示</span></span><br><span class="line">train_data</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405222251887.png" alt="数据"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 训练词向量</span></span><br><span class="line">model=Word2Vec(</span><br><span class="line"> 			sentences=<span class="built_in">list</span>(train_data[<span class="number">0</span>].value[:])+<span class="built_in">list</span>(test_data[<span class="number">0</span>].value[:]),</span><br><span class="line">vector_size=<span class="number">30</span>,window=<span class="number">5</span>,min_count=<span class="number">1</span>,workers=</span><br><span class="line">)</span><br><span class="line">model.wv.most_similar(<span class="string">&#x27;打开&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405222256148.png" alt="实例"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_w2v=train_data[<span class="number">0</span>].apply(<span class="keyword">lambda</span> x:model.wv[x].mean(<span class="number">0</span>))</span><br><span class="line">test_w2v=test_data[<span class="number">0</span>].apply(<span class="keyword">lambda</span> x:model.wv[x].mean(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">train_w2v=np.vstack(train_w2v)</span><br><span class="line">test_w2v=np.vstack(test_w2v)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 交叉验证，使用支持向量机</span></span><br><span class="line">cv_pred=cross_val_predict(</span><br><span class="line">    LinearSVC()</span><br><span class="line">	train_w2v,train_data[<span class="number">1</span>]</span><br><span class="line">)</span><br><span class="line"><span class="comment"># 分类报告：精确率、召回率、F1分数</span></span><br><span class="line"><span class="built_in">print</span>(classification_report(train_data[<span class="number">1</span>],cv_pred))</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405232131277.png" alt="结果"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cv_pred=cross_val_predict(</span><br><span class="line">	LogisticRegression(),</span><br><span class="line">	train_w2v,train_data[<span class="number">1</span>]</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(classification_report(train_data[<span class="number">1</span>],cv_pred)</span><br></pre></td></tr></table></figure>
+<p><img src="https://12345picture.oss-cn-hangzhou.aliyuncs.com/202405232130702.png" alt="结果"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Yewq</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/05/10/%E5%AF%B9%E8%AF%9D%E6%84%8F%E5%9B%BE%E8%AF%86%E5%88%AB/">http://example.com/2024/05/10/%E5%AF%B9%E8%AF%9D%E6%84%8F%E5%9B%BE%E8%AF%86%E5%88%AB/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">春风十里</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://ts1.cn.mm.bing.net/th/id/R-C.66d7b796377883a92aad65b283ef1f84?rik=sQ%2fKoYAcr%2bOwsw&amp;riu=http%3a%2f%2fwww.quazero.com%2fuploads%2fallimg%2f140305%2f1-140305131415.jpg&amp;ehk=Hxl%2fQ9pbEiuuybrGWTEPJOhvrFK9C3vyCcWicooXfNE%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://ts1.cn.mm.bing.net/th/id/R-C.4e8286591310ca1d1d99cb7072f13218?rik=t6ebQNu8dGSbaQ&amp;riu=http%3a%2f%2fimg.touxiangwu.com%2fuploads%2fallimg%2f2022020920%2fjbozxw1scpi.jpg&amp;ehk=YMIbqTrTebxfnY3LeT%2boHwRxgBLWFuTxxB2qDEzrD7k%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yewq</div><div class="author-info__description">心有猛虎,<br> 细嗅蔷薇</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/courage75/courage75.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=3429098741&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">记录每天成长</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E4%BB%8B%E7%BB%8D"><span class="toc-text">内容介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="toc-text">背景介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A11%EF%BC%9A%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%88%86%E6%9E%90"><span class="toc-text">任务1：数据读取与分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A12%EF%BC%9A-%E6%AD%A3%E5%88%99%E5%85%B3%E9%94%AE%E8%AF%8D%E4%B8%8E%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB"><span class="toc-text">任务2： 正则关键词与文本分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A13%EF%BC%9A-TFIDF-%E6%8F%90%E5%8F%96%E4%B8%8E%E5%88%86%E7%B1%BB"><span class="toc-text">任务3：$TFIDF$提取与分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A14%EF%BC%9A%E8%AF%8D%E5%90%91%E9%87%8F%E8%AE%AD%E7%BB%83%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-text">任务4：词向量训练与使用</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/%E3%80%8A%E6%9D%8E%E5%87%AD%E7%AE%9C%E7%AF%8C%E5%BC%95%E3%80%8B/" title="《李凭箜篌引》"><img src="https://ts1.cn.mm.bing.net/th/id/R-C.35a8503569ebb2502de197753285f1f1?rik=SJj3BuovV8w9vg&amp;riu=http%3a%2f%2fimg1.gtimg.com%2frushidao%2fpics%2fhv1%2f86%2f75%2f1907%2f124021886.jpg&amp;ehk=eXVDfqZXcRHVpscwLCiOpWDiEPpvyGAz%2fVxlLdwEL9M%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0&amp;sres=1&amp;sresct=1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《李凭箜篌引》"/></a><div class="content"><a class="title" href="/2024/05/21/%E3%80%8A%E6%9D%8E%E5%87%AD%E7%AE%9C%E7%AF%8C%E5%BC%95%E3%80%8B/" title="《李凭箜篌引》">《李凭箜篌引》</a><time datetime="2024-05-21T14:48:00.000Z" title="发表于 2024-05-21 22:48:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/15/%E5%BF%B5%E5%A5%B4%E5%A8%87%20%E6%98%86%E4%BB%91/" title="念奴娇"><img src="https://ts1.cn.mm.bing.net/th/id/R-C.35a8503569ebb2502de197753285f1f1?rik=SJj3BuovV8w9vg&amp;riu=http%3a%2f%2fimg1.gtimg.com%2frushidao%2fpics%2fhv1%2f86%2f75%2f1907%2f124021886.jpg&amp;ehk=eXVDfqZXcRHVpscwLCiOpWDiEPpvyGAz%2fVxlLdwEL9M%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0&amp;sres=1&amp;sresct=1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="念奴娇"/></a><div class="content"><a class="title" href="/2024/05/15/%E5%BF%B5%E5%A5%B4%E5%A8%87%20%E6%98%86%E4%BB%91/" title="念奴娇">念奴娇</a><time datetime="2024-05-15T14:48:00.000Z" title="发表于 2024-05-15 22:48:00">2024-05-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/10/%E5%AF%B9%E8%AF%9D%E6%84%8F%E5%9B%BE%E8%AF%86%E5%88%AB/" title="COggle 30 Days of ML 对话意图识别"><img src="https://ts1.cn.mm.bing.net/th/id/R-C.66d7b796377883a92aad65b283ef1f84?rik=sQ%2fKoYAcr%2bOwsw&amp;riu=http%3a%2f%2fwww.quazero.com%2fuploads%2fallimg%2f140305%2f1-140305131415.jpg&amp;ehk=Hxl%2fQ9pbEiuuybrGWTEPJOhvrFK9C3vyCcWicooXfNE%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="COggle 30 Days of ML 对话意图识别"/></a><div class="content"><a class="title" href="/2024/05/10/%E5%AF%B9%E8%AF%9D%E6%84%8F%E5%9B%BE%E8%AF%86%E5%88%AB/" title="COggle 30 Days of ML 对话意图识别">COggle 30 Days of ML 对话意图识别</a><time datetime="2024-05-10T12:22:00.461Z" title="发表于 2024-05-10 20:22:00">2024-05-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/05/4.4%20%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83/" title="4.4 隐马尔可夫模型的训练"><img src="http://img.netbian.com/file/2023/0802/130634aYXIM.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="4.4 隐马尔可夫模型的训练"/></a><div class="content"><a class="title" href="/2024/05/05/4.4%20%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83/" title="4.4 隐马尔可夫模型的训练">4.4 隐马尔可夫模型的训练</a><time datetime="2024-05-05T09:43:00.000Z" title="发表于 2024-05-05 17:43:00">2024-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/04/4.3%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90/" title="4.3隐马尔可夫模型的样本生成"><img src="https://ts1.cn.mm.bing.net/th/id/R-C.b82f2369ce4568adec88dcaca499b443?rik=CV8MgD5%2f8BvSww&amp;riu=http%3a%2f%2fpic.bizhi360.com%2fbbpic%2f94%2f2894.jpg&amp;ehk=6ZNuh3TmCvMKWkwFN%2bkRx27FaUFAy%2fmIS34L0lvgMQE%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="4.3隐马尔可夫模型的样本生成"/></a><div class="content"><a class="title" href="/2024/05/04/4.3%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90/" title="4.3隐马尔可夫模型的样本生成">4.3隐马尔可夫模型的样本生成</a><time datetime="2024-05-04T08:26:00.000Z" title="发表于 2024-05-04 16:26:00">2024-05-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024  <i id="heartbeat" class="fa fas fa-heartbeat"></i> Yewq</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/HCLonely/images@master/others/heartbeat.min.css"></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="/js/cat.js"></script><div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = 'd0ff76654f2e425ba1d05033b3f19ee8';
+  var gaud_map_key = 'ceeaa04e96cb478d8f3dee7141d620f4';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '112.982279,28.19409';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":20,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
